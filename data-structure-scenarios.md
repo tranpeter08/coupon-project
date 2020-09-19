@@ -43,7 +43,7 @@ _Example: 10% off product with specific sku. In this case, a Tide product with i
     free_item: null
   },
   validation_rules: [
-    "cart,with_prop,sku,str,123abc,to_equal,int,1"
+    "cart","find_item",{sku: "123abc"}, "to_exist"
   ],
   // redemption_limit: null,
   timeframe: {
@@ -73,7 +73,7 @@ _Example: 10% product with specific sku and free shipping, using same item sku a
     free_item: null
   },
   validation_rules: [
-    "cart_item,with_prop,sku,str,123abc,to_equal,int,1"
+    "cart_item", "find_item", {sku: "123abc"}, "to_exist"
   ],
   // redemption_limit: null,
   timeframe: {
@@ -89,7 +89,7 @@ _Example: 10% product with specific sku and free shipping, using same item sku a
 
 ## Free Product
 
-_Example: Free candle with \$50 purchase_
+_Example: Free candle with at least \$50 purchase_
 
 ```javascript
 {
@@ -131,7 +131,7 @@ _Example: Buy one Big Mac, get one free. Big Mac has an item id of "bm100"_
     free_item: null
   },
   validation_rules: [
-    "cart", "find_item", {id: "bm100"}, "prop", "qty", "greater_than_equal_to", 2
+    "cart", "find_item", {id: "bm100"}, "get_prop", "qty", "greater_than_equal_to", 2
   ],
   // redemption_limit: null,
   timeframe: {
@@ -157,7 +157,7 @@ _Example: Buy one Big Mac, get one 50%. Big Mac has an item id of "bm100"_
     free_item: null
   },
   validation_rules: [
-    "cart", "find_item", {id: "bm100"}, "prop", "qty", "greater_than_equal_to", 2
+    "cart", "find_item", {id: "bm100"}, "get_prop", "qty", "greater_than_equal_to", 2
   ],
   // redemption_limit: null,
   timeframe: {
@@ -185,7 +185,7 @@ _Example: Buy one Big Mac, get one 50%. Big Mac has an item id of "bm100"_
     free_item: null
   },
   validation_rules: [
-    "cart", "find_item", {id: "bm100"}, "prop", "qty", "greater_than_equal_to", 2
+    "cart", "find_item", {id: "bm100"}, "get_prop", "qty", "greater_than_equal_to", 2
   ],
   // redemption_limit: null,
   timeframe: {
