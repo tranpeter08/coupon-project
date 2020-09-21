@@ -172,7 +172,7 @@ _Example: Buy one Big Mac, get one 50%. Big Mac has an item id of "bm100"_
 
 ## Free Sample
 
-_Example: Buy a Dickies shirt, get a hat or socks for free. Items must be in cart. Hat sku is "hat123" and sock sku is "sock123"._
+_Example: Buy a Dickies shirt, get a hat or socks for free. Items must be in cart. Hat sku is "hat123" and sock sku is "socks123"._
 
 _Example data:_
 ```javascript
