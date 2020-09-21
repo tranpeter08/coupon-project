@@ -174,13 +174,16 @@ _Example: Buy one Big Mac, get one 50%. Big Mac has an item id of "bm100"_
 
 _Example: Buy a Dickies shirt, get a hat or socks for free. Items must be in cart. Hat sku is "hat123" and sock sku is "sock123"._
 
-_Example data: {
+_Example data:_
+```javascript
+{
   cart: [
     {sku: 'shirt123', price: 1000, qty: 1, brand: 'Dickies'},
     {sku: 'socks123', price: 100, qty: 1, brand: 'Dickies'},
     {sku: 'milk123', price: 10, qty: 1, brand: 'AMoozing'},
   ],
-}_
+}
+```
 
 ```javascript
 {
