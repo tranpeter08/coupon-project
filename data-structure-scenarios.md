@@ -172,20 +172,32 @@ _Example: Buy one Big Mac, get one 50%. Big Mac has an item id of "bm100"_
 
 ## Free Sample
 
-_Example: Buy one Big Mac, get one 50%. Big Mac has an item id of "bm100"_
+_Example: Buy a Dickies shirt, get a hat or socks for free. Items must be in cart. Hat sku is "hat123" and sock sku is "sock123"._
+
+_Example data: {
+  cart: [
+    {sku: 'shirt123', price: 1000, qty: 1, brand: 'Dickies'},
+    {sku: 'socks123', price: 100, qty: 1, brand: 'Dickies'},
+    {sku: 'milk123', price: 10, qty: 1, brand: 'AMoozing'},
+  ],
+}_
 
 ```javascript
 {
   coupon_id: "e9c02f00-f6ee-4701-a72a-04fd93de90ab",
-  coupon_code: "BOGO_HALF_BIGMAC",
+  coupon_code: "DICKIES_FREE_SOCKS_OR_SHIRT",
   discount_value: {
-    percent_off: 50,
+    percent_off: 100,
     amount_off: null,
     free_shipping: false,
     free_item: null
   },
   validation_rules: [
-    "cart", "find_item", {id: "bm100"}, "get_prop", "qty", "greater_than_equal_to", 2
+    "cart", "find_items", {brand: "dickies"}, "matches", "greater_than", 1, "AND"
+    "(", 
+    "cart", "find_item", {sku: "socks123"}, "to_exist", "OR", 
+    "cart", "find_item", {sku: "hat123"}, "to_exist"
+    ")"
   ],
   // redemption_limit: null,
   timeframe: {
