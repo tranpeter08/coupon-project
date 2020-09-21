@@ -196,10 +196,15 @@ _Example data:_
     free_item: null
   },
   validation_rules: [
-    "cart", "find_items", {brand: "dickies"}, "matches", "greater_than", 1, "AND"
+    "(",
+      "cart", "find_items", {brand: "dickies"}, "matches", "greater_than", 1, "OR"
+      "cart", "find_items", {brand: "dickies"}, 
+        "find_item_greater_than", {qty: 1},  "matches", "greater_than_equal_to", 1,
+    ")"
+    "AND"
     "(", 
-    "cart", "find_item", {sku: "socks123"}, "to_exist", "OR", 
-    "cart", "find_item", {sku: "hat123"}, "to_exist"
+      "cart", "find_item", {sku: "socks123"}, "to_exist", "OR", 
+      "cart", "find_item", {sku: "hat123"}, "to_exist"
     ")"
   ],
   // redemption_limit: null,
