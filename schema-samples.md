@@ -9,6 +9,6 @@
     _id: false
   });
 
-  couponSchema.index({account_id: 1,  coupon_code: 1});
+  couponSchema.index({account_id: 1,  coupon_code: 1}, {unique: true});
 
 ```
