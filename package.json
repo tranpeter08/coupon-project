@@ -1,0 +1,22 @@
+{
+  "name": "coupon-project",
+  "version": "1.0.0",
+  "description": "prototyping for coupon project",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tranpeter08/coupon-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tranpeter08/coupon-project/issues"
+  },
+  "homepage": "https://github.com/tranpeter08/coupon-project#readme",
+  "dependencies": {
+    "jest": "^26.5.3"
+  }
+}
