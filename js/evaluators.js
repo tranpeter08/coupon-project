@@ -21,9 +21,21 @@ const evaluators = {
     }
   },
 
+  greaterThanEqual(result, params) {
+    for (let key in params) {
+      return result[key] >= params[key];
+    }
+  },
+
   lessThan(result, params) {
     for (let key in params) {
       return result[key] < params[key];
+    }
+  },
+
+  lessThanEqual(result, params) {
+    for (let key in params) {
+      return result[key] <= params[key];
     }
   },
 
