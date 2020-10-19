@@ -1,9 +1,13 @@
 const validateRule = require('./validateRule');
 
-function validateRuleSet(data, ruleset = []) {
+function validateRuleSet(cartData, ruleset) {
+  // for sitewide coupons
+  if (!ruleset.length) {
+    return true;
+  }
+
   const rules = [...ruleset];
   let isValid = null;
-  // let cursor = null;
 
   while (rules.length) {
     let rule = rules.shift();
@@ -20,10 +24,9 @@ function validateRuleSet(data, ruleset = []) {
       rule = rules.shift();
     }
 
-    isValid = validateRule(rule, data);
+    isValid = validateRule(rule, cartData);
   }
 
-  // console.log({ isValid });
   return isValid;
 }
 
