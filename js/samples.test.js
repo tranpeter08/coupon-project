@@ -75,9 +75,9 @@ describe('validateCoupon()', () => {
   });
 
   it('validates a field in metadata', () => {
-    expect(validateRuleSet(cartData2, [...rule2])).toEqual(false);
+    expect(validateRuleSet(cartData2, rule2)).toEqual(false);
 
     cartData2.metadata.customerType = 'RED_CARD';
-    expect(validateRuleSet(cartData2, [...rule2])).toEqual(true);
+    expect(validateRuleSet(cartData2, rule2)).toEqual(true);
   });
 });

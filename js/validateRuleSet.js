@@ -1,8 +1,9 @@
 const validateRule = require('./validateRule');
 
-function validateRuleSet(data, rules = []) {
+function validateRuleSet(data, ruleset = []) {
+  const rules = [...ruleset];
   let isValid = null;
-  let cursor = null;
+  // let cursor = null;
 
   while (rules.length) {
     let rule = rules.shift();
@@ -22,7 +23,7 @@ function validateRuleSet(data, rules = []) {
     isValid = validateRule(rule, data);
   }
 
-  console.log({ isValid });
+  // console.log({ isValid });
   return isValid;
 }
 
