@@ -1,29 +1,30 @@
 const memo = {};
 
-const queries = {
-  findItem(cart, params) {
-    const key = JSON.stringify(['find', params]);
+function findItem(cart, params) {
+  if (!params) throw new Error('params must be an object');
+  const key = JSON.stringify(['find', params]);
 
-    if (memo[key]) {
-      return memo[key];
+  if (memo[key]) {
+    return memo[key];
+  }
+
+  const result = cart.find((item) => {
+    for (let key in params) {
+      if (item[key] !== params[key]) {
+        return false;
+      }
     }
 
-    const result = cart.find((item) => {
-      for (let key in params) {
-        if (item[key] !== params[key]) {
-          return false;
-        }
-      }
+    return true;
+  });
 
-      return true;
-    });
+  memo[key] = result;
+  return result;
+}
 
-    memo[key] = result;
-    return result;
-  },
-
+const queries = {
   itemInCart(cartData, params) {
-    return this.findItem(cartData.cart, params);
+    return findItem(cartData.cart, params);
   },
 
   itemsInCart(cartData, params) {
