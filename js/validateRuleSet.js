@@ -20,7 +20,7 @@ function validateRuleSet(cartData, ruleset) {
       continue;
     }
 
-    if (rule === 'OR' || rule === 'AND') {
+    if (rule === 'OR') {
       rule = rules.shift();
     }
 
