@@ -12,7 +12,6 @@ describe('validateRuleset()', () => {
         evaluator: 'toExist',
         evalParams: null,
       },
-      'AND',
       {
         query: 'itemInCart',
         queryParams: {
@@ -21,20 +20,10 @@ describe('validateRuleset()', () => {
         evaluator: 'toExist',
         evalParams: null,
       },
-      'AND',
       {
         query: 'itemInCart',
         queryParams: {
           sku: 'c',
-        },
-        evaluator: 'toExist',
-        evalParams: null,
-      },
-      'OR',
-      {
-        query: 'itemInCart',
-        queryParams: {
-          sku: 'd',
         },
         evaluator: 'toExist',
         evalParams: null,
@@ -44,20 +33,41 @@ describe('validateRuleset()', () => {
     const cartData = {
       cart: [
         {
-          sku: 'b',
+          sku: 'a',
           brand: 'soap',
         },
         {
-          sku: 'a',
+          sku: 'b',
+          brand: 'tide',
+        },
+        {
+          sku: 'c',
+          brand: 'tide',
+        },
+        {
+          sku: 'd',
           brand: 'tide',
         },
       ],
       metadata: {},
     };
 
-    expect(validateRuleSet(cartData, ruleset)).toEqual(false);
-    cartData.cart[0].sku = 'd';
+    const extraRule = {
+      query: 'itemInCart',
+      queryParams: {
+        sku: 'd',
+      },
+      evaluator: 'toExist',
+      evalParams: null,
+    };
+
     expect(validateRuleSet(cartData, ruleset)).toEqual(true);
+    ruleset[0].queryParams.sku = 'x';
+    expect(validateRuleSet(cartData, ruleset)).toEqual(false);
+    ruleset.push('OR', extraRule);
+    expect(validateRuleSet(cartData, ruleset)).toEqual(true);
+    ruleset[4].queryParams.sku = 'z';
+    expect(validateRuleSet(cartData, ruleset)).toEqual(false);
   });
 
   it('validates a field in metadata', () => {
