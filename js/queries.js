@@ -20,12 +20,6 @@ const queries = {
   },
 
   itemsInCart(cartData, params) {
-    const key = JSON.stringify(['filter', params]);
-
-    if (memo[key]) {
-      return memo[key];
-    }
-
     const results = cartData.cart.filter((item) => {
       for (let key in params) {
         if (item[key] !== params[key]) {
@@ -36,7 +30,6 @@ const queries = {
       return true;
     });
 
-    memo[key] = results;
     return results;
   },
 
