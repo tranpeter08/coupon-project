@@ -7,6 +7,7 @@ function validateRuleSet(cartData, ruleset) {
   }
 
   const rules = [...ruleset];
+  const memo = {};
   let isValid = null;
 
   while (rules.length) {
@@ -24,7 +25,7 @@ function validateRuleSet(cartData, ruleset) {
       rule = rules.shift();
     }
 
-    isValid = validateRule(rule, cartData);
+    isValid = validateRule(rule, cartData, memo);
   }
 
   return isValid;

@@ -1,12 +1,5 @@
-const memo = {};
-
 function findItem(cart, params) {
   if (!params) throw new Error('params must be an object');
-  const key = JSON.stringify(['find', params]);
-
-  if (memo[key]) {
-    return memo[key];
-  }
 
   const result = cart.find((item) => {
     for (let key in params) {
@@ -18,7 +11,6 @@ function findItem(cart, params) {
     return true;
   });
 
-  memo[key] = result;
   return result;
 }
 
@@ -48,7 +40,7 @@ const queries = {
     return results;
   },
 
-  metadataField(cartData, params) {
+  cartMetadata(cartData, params) {
     return cartData.metadata;
   },
 };
