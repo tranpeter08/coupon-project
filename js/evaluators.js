@@ -50,6 +50,21 @@ const evaluators = {
   hasResultCountLessThan(result, params) {
     return result.length < params.count;
   },
+
+  equalToCartMetadataKey(result, params, cartData) {
+    // requires metadataKey and resultKey properties to be defined in params
+    const { metadata } = cartData;
+
+    if (!params || !metadata)
+      throw new Error('params or cart metadata undefined!');
+
+    const { metadataKey, resultKey } = params;
+
+    if (!metadataKey || !resultKey)
+      throw new Error('Missing "metadataKey" or "resultKey" properties');
+
+    return result[resultKey] === metadata[metadataKey];
+  },
 };
 
 module.exports = evaluators;
