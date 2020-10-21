@@ -73,7 +73,7 @@ describe('validateRuleset()', () => {
   it('validates a field in metadata', () => {
     const ruleset = [
       {
-        query: 'metadataField',
+        query: 'cartMetadata',
         queryParams: null,
         evaluator: 'equalTo',
         evalParams: { customerType: 'RED_CARD' },
@@ -138,7 +138,7 @@ describe('validateRuleset()', () => {
 
     const ruleset = [
       {
-        query: 'metadataField',
+        query: 'cartMetadata',
         queryParams: null,
         evaluator: 'greaterThanEqual',
         evalParams: { cartTotal: 300 },
@@ -148,5 +148,54 @@ describe('validateRuleset()', () => {
     expect(validateRuleSet(cartData, ruleset)).toEqual(false);
     cartData.metadata.cartTotal = 300;
     expect(validateRuleSet(cartData, ruleset)).toEqual(true);
+  });
+
+  it('validates a customer selected item to apply discount to', () => {
+    const ruleset = [
+      {
+        query: 'itemInCart',
+        queryParams: { sku: 'a' },
+        evaluator: 'equalToCartMetadataKey',
+        evalParams: {
+          metadataKey: 'customerSelectedSku',
+          resultKey: 'sku',
+        },
+      },
+    ];
+
+    const cartData = {
+      cart: [
+        { sku: 'a', qty: 1 },
+        { sku: 'b', qty: 1 },
+        { sku: 'c', qty: 1 },
+      ],
+      metadata: {
+        customerSelectedSku: 'c',
+      },
+    };
+
+    const extraRule = {
+      query: 'itemInCart',
+      queryParams: { sku: 'c' },
+      evaluator: 'equalToCartMetadataKey',
+      evalParams: { metadataKey: 'customerSelectedSku', resultKey: 'sku' },
+    };
+
+    const badRule = {
+      query: 'itemInCart',
+      queryParams: { sku: 'b' },
+      evaluator: 'equalToCartMetadataKey',
+      evalParams: {},
+    };
+
+    expect(validateRuleSet(cartData, ruleset)).toEqual(false);
+    ruleset.push('OR', extraRule);
+
+    expect(validateRuleSet(cartData, ruleset)).toEqual(true);
+    ruleset.unshift(badRule);
+
+    expect(() => {
+      validateRuleSet(cartData, ruleset);
+    }).toThrow();
   });
 });
