@@ -1,4 +1,5 @@
 const validateCoupon = require('./validateCoupon');
+const {expect} = require('chai');
 
 describe('validateCoupon()', () => {
   it('find items in cart that match rule conditions', () => {
@@ -64,16 +65,16 @@ describe('validateCoupon()', () => {
       },
     ];
 
-    expect(validateCoupon(cartData, rules)).toEqual(true);
+    expect(validateCoupon(cartData, rules)).to.equal(true);
     rules[0][0].queryParams.sku = 'x';
 
-    expect(validateCoupon(cartData, rules)).toEqual(false);
+    expect(validateCoupon(cartData, rules)).to.equal(false);
     rules.push(extrarules);
 
-    expect(validateCoupon(cartData, rules)).toEqual(true);
+    expect(validateCoupon(cartData, rules)).to.equal(true);
     extrarules[0].queryParams.sku = 'z';
 
-    expect(validateCoupon(cartData, rules)).toEqual(false);
+    expect(validateCoupon(cartData, rules)).to.equal(false);
   });
 
   it('validates a field in metadata', () => {
@@ -95,10 +96,10 @@ describe('validateCoupon()', () => {
       },
     };
 
-    expect(validateCoupon(cartData, rules)).toEqual(false);
+    expect(validateCoupon(cartData, rules)).to.equal(false);
     cartData.metadata.customerType = 'RED_CARD';
 
-    expect(validateCoupon(cartData, rules)).toEqual(true);
+    expect(validateCoupon(cartData, rules)).to.equal(true);
   });
 
   it('validates a sitewide offer', () => {
@@ -108,7 +109,7 @@ describe('validateCoupon()', () => {
       metadata: {},
     };
 
-    expect(validateCoupon(cartData, rules)).toEqual(true);
+    expect(validateCoupon(cartData, rules)).to.equal(true);
   });
 
   it('validates if a product exists with a certain sku', () => {
@@ -132,10 +133,10 @@ describe('validateCoupon()', () => {
       metadata: {},
     };
 
-    expect(validateCoupon(cartData, rules)).toEqual(false);
+    expect(validateCoupon(cartData, rules)).to.equal(false);
     rules[0][0].evalParams.sku = 'bbb';
 
-    expect(validateCoupon(cartData, rules)).toEqual(true);
+    expect(validateCoupon(cartData, rules)).to.equal(true);
   });
 
   it('validates if cart value is greater than or equal to an amount', () => {
@@ -159,10 +160,10 @@ describe('validateCoupon()', () => {
       metadata: { cartTotal: 200 },
     };
 
-    expect(validateCoupon(cartData, rules)).toEqual(false);
+    expect(validateCoupon(cartData, rules)).to.equal(false);
     cartData.metadata.cartTotal = 300;
 
-    expect(validateCoupon(cartData, rules)).toEqual(true);
+    expect(validateCoupon(cartData, rules)).to.equal(true);
   });
 
   it('validates a customer selected item to apply discount to', () => {
@@ -207,14 +208,14 @@ describe('validateCoupon()', () => {
       evalParams: {},
     };
 
-    expect(validateCoupon(cartData, rules)).toEqual(false);
+    expect(validateCoupon(cartData, rules)).to.equal(false);
     rules.push(extraRuleSet);
 
-    expect(validateCoupon(cartData, rules)).toEqual(true);
+    expect(validateCoupon(cartData, rules)).to.equal(true);
     rules[0].unshift(badRule);
 
     expect(() => {
       validateCoupon(cartData, rules);
-    }).toThrow();
+    }).to.throw();
   });
 });
